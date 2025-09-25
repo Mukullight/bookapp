@@ -1,134 +1,50 @@
-# Project: Book Recommender System Using Machine Learning! | Collaborative Filtering Based
+# Welcome to your Expo app 👋
 
-<img src="demo/6.jpeg" alt="workflow" width="70%">
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-Recommendation systems are becoming increasingly important in today’s extremely busy world. People are always short on time with the myriad tasks they need to accomplish in the limited 24 hours. Therefore, the recommendation systems are important as they help them make the right choices, without having to expend their cognitive resources.
+## Get started
 
-The purpose of a recommendation system basically is to search for content that would be interesting to an individual. Moreover, it involves a number of factors to create personalised lists of useful and interesting content specific to each user/individual. Recommendation systems are Artificial Intelligence based algorithms that skim through all possible options and create a customized list of items that are interesting and relevant to an individual. These results are based on their profile, search/browsing history, what other people with similar traits/demographics are watching, and how likely are you to watch those movies. This is achieved through predictive modeling and heuristics with the data available.
+1. Install dependencies
 
-# Types of Recommendation System :
+   ```bash
+   npm install
+   ```
 
-### 1 ) Content Based :
+2. Start the app
 
-- Content-based systems, which use characteristic information and takes item attriubutes into consideration .
+   ```bash
+   npx expo start
+   ```
 
-- Twitter , Youtube .
+In the output, you'll find options to open the app in a
 
-- Which music you are listening , what singer are you watching . Form embeddings for the features .
-	
-- User specific actions or similar items reccomendation .
-	
-- It will create a vector of it .
-	
-- These systems make recommendations using a user's item and profile features. They hypothesize that if a user was interested in an item in the past, they will once again be interested in it in the future
-	
-- One issue that arises is making obvious recommendations because of excessive specialization (user A is only interested in categories B, C, and D, and the system is not able to recommend items outside those categories, even though they could be interesting to them).
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-### 2 ) Collaborative Based :
-		
-- Collaborative filtering systems, which are based on user-item interactions.
-	
-- Clusters of users with same ratings , similar users .
-	
-- Book recommendation , so use cluster mechanism .
-	
-- We take only one parameter , ratings or comments .
-	
-- In short, collaborative filtering systems are based on the assumption that if a user likes item A and another user likes the same item A as well as another item, item B, the first user could also be interested in the second item . 
-	
-- Issues are :
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-	- User-Item nXn matrix , so computationally expensive .
+## Get a fresh project
 
-	- Only famous items will get reccomended .
-
-	- New items might not get reccomended at all .   
-
-### 3 ) Hybrid Based :
-	
-- Hybrid systems, which combine both types of information with the aim of avoiding problems that are generated when working with just one kind.
-
-- Combination of both and used now a days .
-
-- Uses : word2vec , embedding .           
-
-# About this project:
-
-This is a streamlit web application that can recommend various kinds of similar books based on an user interest.
-here is a demo,
-
-* [Click here to run it live on server](https://book-recommendation45.herokuapp.com/)
-
-
-# Demo:
-
-<img src="demo/1.png" alt="workflow" width="70%">
-
-<img src="demo/2.png" alt="workflow" width="70%">
-
-<img src="demo/3.png" alt="workflow" width="70%">
-
-
-# Dataset has been used:
-
-* [Dataset link](https://www.kaggle.com/ra4u12/bookrecommendation)
-
-# Concept used to build the model.pkl file : NearestNeighbors
-
-1 . Load the data
-	
-2 . Initialise the value of k
-
-3 . For getting the predicted class, iterate from 1 to total number of training data points
-
-4 . Calculate the distance between test data and each row of training data. Here we will use Euclidean distance as our distance metric since it’s the most popular method. 
-
-5 . Sort the calculated distances in ascending order based on distance values
-	
-6 . Get top k rows from the sorted array
-
-# How to run?
-### STEPS:
-
-Clone the repository
+When you're ready, run:
 
 ```bash
-https://github.com/entbappy/Books-Recommender-System-Using-Machine-Learning
-```
-### STEP 01- Create a conda environment after opening the repository
-
-```bash
-conda create -n books python=3.7.10 -y
+npm run reset-project
 ```
 
-```bash
-conda activate books
-```
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
+## Learn more
 
-### STEP 02- install the requirements
-```bash
-pip install -r requirements.txt
-```
+To learn more about developing your project with Expo, look at the following resources:
 
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-```bash
-#run this file to generate the models
+## Join the community
 
-Books Recommender.ipynb
-```
+Join our community of developers creating universal apps.
 
-Now run,
-```bash
-streamlit run app.py
-```
-
-
-```bash
-Author: Bappy Ahmed
-Data Scientist
-Email: entbappy73@gmail.com
-
-```
-
-
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
