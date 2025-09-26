@@ -7,48 +7,63 @@ export const TMDB_CONFIG = {
   },
 };
 
-export const fetchMovies = async ({
-  query,
-}: {
-  query: string;
-}): Promise<Movie[]> => {
-  const endpoint = query
-    ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
-    : `${TMDB_CONFIG.BASE_URL}/discover/movie?sort_by=popularity.desc`;
+// Google Books API
+const GOOGLE_BOOKS_BASE = "https://www.googleapis.com/books/v1";
 
-  const response = await fetch(endpoint, {
-    method: "GET",
-    headers: TMDB_CONFIG.headers,
-  });
+export const fetchBooks = async ({ query }: { query: string }): Promise<Book[]> => {
+  const endpoint = `${GOOGLE_BOOKS_BASE}/volumes?q=${encodeURIComponent(
+    query || "bestsellers"
+  )}&printType=books&maxResults=30`;
 
+  const response = await fetch(endpoint, { method: "GET" });
   if (!response.ok) {
-    throw new Error(`Failed to fetch movies: ${response.statusText}`);
+    throw new Error(`Failed to fetch books: ${response.statusText}`);
   }
 
   const data = await response.json();
-  return data.results;
+  const items = (data.items || []) as any[];
+
+  const books: Book[] = items.map((item) => {
+    const v = item.volumeInfo || {};
+    return {
+      id: item.id,
+      title: v.title,
+      authors: v.authors,
+      publishedDate: v.publishedDate,
+      description: v.description,
+      averageRating: v.averageRating,
+      ratingsCount: v.ratingsCount,
+      thumbnail: v.imageLinks?.thumbnail || v.imageLinks?.smallThumbnail || null,
+    } as Book;
+  });
+
+  return books;
 };
 
-export const fetchMovieDetails = async (
-  movieId: string
-): Promise<MovieDetails> => {
-  try {
-    const response = await fetch(
-      `${TMDB_CONFIG.BASE_URL}/movie/${movieId}?api_key=${TMDB_CONFIG.API_KEY}`,
-      {
-        method: "GET",
-        headers: TMDB_CONFIG.headers,
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch movie details: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie details:", error);
-    throw error;
+export const fetchBookDetails = async (bookId: string): Promise<BookDetails> => {
+  const endpoint = `${GOOGLE_BOOKS_BASE}/volumes/${bookId}`;
+  const response = await fetch(endpoint, { method: "GET" });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch book details: ${response.statusText}`);
   }
+
+  const item = await response.json();
+  const v = item.volumeInfo || {};
+
+  const book: BookDetails = {
+    id: item.id,
+    title: v.title,
+    authors: v.authors,
+    publishedDate: v.publishedDate,
+    description: v.description,
+    averageRating: v.averageRating,
+    ratingsCount: v.ratingsCount,
+    thumbnail: v.imageLinks?.thumbnail || v.imageLinks?.smallThumbnail || null,
+    pageCount: v.pageCount,
+    categories: v.categories,
+    publisher: v.publisher,
+    language: v.language,
+  };
+
+  return book;
 };

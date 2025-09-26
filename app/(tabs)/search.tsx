@@ -1,26 +1,25 @@
-import { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, FlatList, Image } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 
-import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
+import { images } from "@/constants/images";
 
+import { fetchBooks } from "@/services/api";
 import useFetch from "@/services/usefetch";
-import { fetchMovies } from "@/services/api";
-import { updateSearchCount } from "@/services/appwrite";
 
-import SearchBar from "@/components/SearchBar";
 import MovieDisplayCard from "@/components/MovieCard";
+import SearchBar from "@/components/SearchBar";
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const {
-    data: movies = [],
+    data: books = [],
     loading,
     error,
-    refetch: loadMovies,
+    refetch: loadBooks,
     reset,
-  } = useFetch(() => fetchMovies({ query: searchQuery }), false);
+  } = useFetch(() => fetchBooks({ query: searchQuery }), false);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
@@ -30,12 +29,7 @@ const Search = () => {
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
-        await loadMovies();
-
-        // Call updateSearchCount only if there are results
-        if (movies?.length! > 0 && movies?.[0]) {
-          await updateSearchCount(searchQuery, movies[0]);
-        }
+        await loadBooks();
       } else {
         reset();
       }
@@ -54,7 +48,7 @@ const Search = () => {
 
       <FlatList
         className="px-5"
-        data={movies as Movie[]}
+        data={books as Book[]}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <MovieDisplayCard {...item} />}
         numColumns={3}
@@ -72,7 +66,7 @@ const Search = () => {
 
             <View className="my-5">
               <SearchBar
-                placeholder="Search for a movie"
+                placeholder="Search for a book"
                 value={searchQuery}
                 onChangeText={handleSearch}
               />
@@ -95,7 +89,7 @@ const Search = () => {
             {!loading &&
               !error &&
               searchQuery.trim() &&
-              movies?.length! > 0 && (
+              books?.length! > 0 && (
                 <Text className="text-xl text-white font-bold">
                   Search Results for{" "}
                   <Text className="text-accent">{searchQuery}</Text>
@@ -108,8 +102,8 @@ const Search = () => {
             <View className="mt-10 px-5">
               <Text className="text-center text-gray-500">
                 {searchQuery.trim()
-                  ? "No movies found"
-                  : "Start typing to search for movies"}
+                  ? "No books found"
+                  : "Start typing to search for books"}
               </Text>
             </View>
           ) : null

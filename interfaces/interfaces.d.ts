@@ -75,3 +75,21 @@ interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
 }
+
+interface Book {
+  id: string;
+  title: string;
+  authors?: string[];
+  publishedDate?: string;
+  description?: string;
+  averageRating?: number;
+  ratingsCount?: number;
+  thumbnail?: string | null;
+}
+
+interface BookDetails extends Book {
+  pageCount?: number;
+  categories?: string[];
+  publisher?: string;
+  language?: string;
+}

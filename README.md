@@ -1,50 +1,63 @@
-# Welcome to your Expo app 👋
+# Book Recommender & Explorer (React Native + Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile app to explore and search books using the Google Books API. Converted from a movies demo to a books experience, with a clean UI, search, list, and details views.
 
-## Get started
+## Features
+- Search books by title/keyword
+- Browse popular books (bestsellers query)
+- Book details: cover, authors, categories, rating, pages, publisher, language, description
+- Responsive UI with tabs and detail navigation
 
-1. Install dependencies
+## Tech Stack
+- React Native (Expo)
+- Expo Router
+- Tailwind (via `nativewind`)
+- Google Books API
 
-   ```bash
-   npm install
-   ```
+## Screenshots
 
-2. Start the app
+![Home](readm/page.jpeg)
 
-   ```bash
-   npx expo start
-   ```
+![Search](readm/mobile.jpeg)
 
-In the output, you'll find options to open the app in a
+![Menu](readm/menu.jpeg)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Expo CLI (optional)
 
-## Get a fresh project
-
-When you're ready, run:
-
+### Install & Run
 ```bash
-npm run reset-project
+cd /home/mukullight/Videos/bookapp
+npm install
+npx expo start
+```
+- Press `a` for Android, `i` for iOS (on macOS), or `w` for web.
+- If you face cache issues, start with clear cache:
+```bash
+npx expo start -c
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Configuration
+- The app uses Google Books API which does not require an API key for basic search/detail.
+- If you want to customize the initial list, edit `fetchBooks` in `services/api.ts` (default query: "bestsellers").
 
-## Learn more
+## Project Structure (key parts)
+- `app/(tabs)/index.tsx`: Home (popular books)
+- `app/(tabs)/search.tsx`: Search books
+- `app/book/[id].tsx`: Book details screen
+- `components/MovieCard.tsx`: Book card (renamed usage but kept filename)
+- `services/api.ts`: Google Books fetchers
+- `interfaces/interfaces.d.ts`: `Book` and `BookDetails` types
 
-To learn more about developing your project with Expo, look at the following resources:
+## Notes
+- Some filenames retain "movie" for brevity, but logic and UI reflect books.
+- SafeAreaView is via `react-native-safe-area-context`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## License
+MIT
 
-## Join the community
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

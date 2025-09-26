@@ -1,8 +1,18 @@
 import { Stack } from "expo-router";
+import { useEffect } from "react";
+import { Platform, StatusBar } from "react-native";
 import "./globals.css";
-import { StatusBar } from "react-native";
 
 export default function RootLayout() {
+  useEffect(() => {
+    if (Platform.OS === "web") {
+      import("expo-keep-awake").then((mod) => {
+        try {
+          mod.deactivateKeepAwake();
+        } catch (e) {}
+      });
+    }
+  }, []);
   return (
     <>
       <StatusBar hidden={true} />
@@ -15,7 +25,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="movie/[id]"
+          name="book/[id]"
           options={{
             headerShown: false,
           }}
